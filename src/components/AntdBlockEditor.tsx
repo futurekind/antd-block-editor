@@ -1,8 +1,13 @@
 import React, { FC, useState } from 'react';
-import { Button, Space, Tooltip } from 'antd';
-import { Block } from './ui/Block';
+import { Button, Popconfirm, Space, Tooltip } from 'antd';
+import { Block, BlockActions, BlockWithOutline } from './ui/Block';
 import { BlockEditorModule } from '../utils/types';
 import { ReactElement } from 'react';
+import {
+    ArrowDownOutlined,
+    ArrowUpOutlined,
+    DeleteOutlined,
+} from '@ant-design/icons';
 
 interface BlockEditorProps<ModuleValue> {
     availableModules: ReactElement<BlockEditorModule<ModuleValue>>[];
@@ -36,8 +41,54 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
         return (
             <>
                 {modules &&
-                    modules.map(({ key, module }) => {
-                        return <Block key={key}>{module}</Block>;
+                    modules.map(({ key, module }, index) => {
+                        return (
+                            <BlockWithOutline key={key}>
+                                <BlockActions>
+                                    <Popconfirm
+                                        title="Wollen Sie diese Komponente wirklich entfernen?"
+                                        onConfirm={() => {
+                                            // handleDelete(index);
+                                            return true;
+                                        }}
+                                        onCancel={() => false}
+                                        okText="Ja"
+                                        cancelText="Nein"
+                                    >
+                                        <Button
+                                            icon={<DeleteOutlined />}
+                                            type="primary"
+                                            size="small"
+                                        />
+                                    </Popconfirm>
+
+                                    <Button
+                                        icon={<ArrowUpOutlined />}
+                                        type="primary"
+                                        size="small"
+                                        disabled={index === 0}
+                                        onClick={() => {
+                                            // handleMove(index, -1)
+                                        }}
+                                    />
+
+                                    <Button
+                                        icon={<ArrowDownOutlined />}
+                                        type="primary"
+                                        size="small"
+                                        disabled={
+                                            index ===
+                                            modules.length - 1
+                                        }
+                                        onClick={() => {
+                                            // handleMove(index, 1)
+                                        }}
+                                    />
+                                </BlockActions>
+
+                                {module}
+                            </BlockWithOutline>
+                        );
                     })}
 
                 <Block center>
