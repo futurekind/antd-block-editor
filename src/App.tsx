@@ -33,11 +33,12 @@ const App: FC = () => {
             <Content>
                 <MainView>
                     <Editor
-                        modules={[
+                        availableModules={[
                             <HeadingModule
                                 key="heading"
                                 icon={<FontSizeOutlined />}
                                 tooltip="Heading"
+                                value="Lorem Ipsum"
                             />,
 
                             <TextModule
