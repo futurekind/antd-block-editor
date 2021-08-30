@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button, Tooltip } from 'antd';
+import { Button, Space, Tooltip } from 'antd';
 import { Block } from './ui/Block';
 import { BlockEditorModule } from '../utils/types';
 import { ReactElement } from 'react';
@@ -12,13 +12,20 @@ const AntdBlockEditor: FC<BlockEditorProps> = ({ modules }) => {
     return (
         <>
             <Block center>
-                {modules.map(({ props: { icon, tooltip }, key }) => {
-                    return (
-                        <Tooltip title={tooltip} key={key}>
-                            <Button size="large" icon={icon} />
-                        </Tooltip>
-                    );
-                })}
+                <Space>
+                    {modules.map(
+                        ({ props: { icon, tooltip }, key }) => {
+                            return (
+                                <Tooltip title={tooltip} key={key}>
+                                    <Button
+                                        size="large"
+                                        icon={icon}
+                                    />
+                                </Tooltip>
+                            );
+                        }
+                    )}
+                </Space>
             </Block>
         </>
     );

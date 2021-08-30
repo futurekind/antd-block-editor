@@ -1,9 +1,13 @@
 import React, { FC } from 'react';
 import { Layout } from 'antd';
-import { FontSizeOutlined } from '@ant-design/icons';
+import {
+    AlignLeftOutlined,
+    FontSizeOutlined,
+} from '@ant-design/icons';
 import styled from 'styled-components';
 import AntdBlockEditor from './components/AntdBlockEditor';
 import HeadingModule from './components/modules/HeadingModule';
+import TextModule from './components/modules/TextModule';
 
 const MainView = styled.main`
     max-width: 1200px;
@@ -26,6 +30,12 @@ const App: FC = () => {
                                 key="heading"
                                 icon={<FontSizeOutlined />}
                                 tooltip="Heading"
+                            />,
+
+                            <TextModule
+                                key="text"
+                                icon={<AlignLeftOutlined />}
+                                tooltip="Text"
                             />,
                         ]}
                     />
