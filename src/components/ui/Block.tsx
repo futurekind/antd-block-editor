@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Block = styled.div<{ center?: boolean }>`
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     padding: 12px;
     position: relative;
     background-color: #fff;

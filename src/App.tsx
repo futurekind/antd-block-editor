@@ -45,6 +45,9 @@ const App: FC = () => {
                                 key="text"
                                 icon={<AlignLeftOutlined />}
                                 tooltip="Text"
+                                value={`Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+
+Perspiciatis molestias, magni delectus consectetur rem cupiditate provident ex quidem labore alias in, omnis magnam officiis maxime, maiores eum neque numquam molestiae!`}
                             />,
                         ]}
                     />
