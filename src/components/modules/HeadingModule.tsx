@@ -23,8 +23,8 @@ const View = styled.h2`
 export type HeadingModuleValueType = string;
 
 const HeadingModule: FC<BlockEditorModule<HeadingModuleValueType>> =
-    ({ value }) => {
-        const [val, setVal] = useState(value);
+    ({ initialValue }) => {
+        const [val, setVal] = useState(initialValue);
         return (
             <View>
                 <input

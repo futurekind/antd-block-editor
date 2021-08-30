@@ -38,14 +38,14 @@ const App: FC = () => {
                                 key="heading"
                                 icon={<FontSizeOutlined />}
                                 tooltip="Heading"
-                                value="Lorem Ipsum"
+                                initialValue="Lorem Ipsum"
                             />,
 
                             <TextModule
                                 key="text"
                                 icon={<AlignLeftOutlined />}
                                 tooltip="Text"
-                                value={`Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                initialValue={`Lorem ipsum dolor sit amet consectetur adipisicing elit. 
 
 Perspiciatis molestias, magni delectus consectetur rem cupiditate provident ex quidem labore alias in, omnis magnam officiis maxime, maiores eum neque numquam molestiae!`}
                             />,
