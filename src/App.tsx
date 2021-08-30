@@ -6,8 +6,12 @@ import {
 } from '@ant-design/icons';
 import styled from 'styled-components';
 import AntdBlockEditor from './components/AntdBlockEditor';
-import HeadingModule from './components/modules/HeadingModule';
-import TextModule from './components/modules/TextModule';
+import HeadingModule, {
+    HeadingModuleValueTape,
+} from './components/modules/HeadingModule';
+import TextModule, {
+    TextModuleValueTape,
+} from './components/modules/TextModule';
 
 const MainView = styled.main`
     max-width: 1200px;
@@ -18,13 +22,17 @@ const MainView = styled.main`
 const App: FC = () => {
     const { Header, Content } = Layout;
 
+    const Editor = AntdBlockEditor<
+        HeadingModuleValueTape | TextModuleValueTape
+    >();
+
     return (
         <Layout>
             <Header />
 
             <Content>
                 <MainView>
-                    <AntdBlockEditor
+                    <Editor
                         modules={[
                             <HeadingModule
                                 key="heading"

@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import { BlockEditorModule } from '../../utils/types';
 
-const TextModule: FC<BlockEditorModule> = () => {
+export type TextModuleValueTape = string;
+
+const TextModule: FC<BlockEditorModule<TextModuleValueTape>> = () => {
     return <span></span>;
 };
 
