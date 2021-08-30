@@ -20,9 +20,9 @@ const View = styled.h2`
     }
 `;
 
-export type HeadingModuleValueTape = string;
+export type HeadingModuleValueType = string;
 
-const HeadingModule: FC<BlockEditorModule<HeadingModuleValueTape>> =
+const HeadingModule: FC<BlockEditorModule<HeadingModuleValueType>> =
     ({ value }) => {
         const [val, setVal] = useState(value);
         return (

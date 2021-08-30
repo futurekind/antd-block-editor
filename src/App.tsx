@@ -7,10 +7,10 @@ import {
 import styled from 'styled-components';
 import AntdBlockEditor from './components/AntdBlockEditor';
 import HeadingModule, {
-    HeadingModuleValueTape,
+    HeadingModuleValueType,
 } from './components/modules/HeadingModule';
 import TextModule, {
-    TextModuleValueTape,
+    TextModuleValueType,
 } from './components/modules/TextModule';
 
 const MainView = styled.main`
@@ -23,7 +23,7 @@ const App: FC = () => {
     const { Header, Content } = Layout;
 
     const Editor = AntdBlockEditor<
-        HeadingModuleValueTape | TextModuleValueTape
+        HeadingModuleValueType | TextModuleValueType
     >();
 
     return (
