@@ -24,7 +24,7 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
     }) => {
         const [modules, setModules] = useState(initialModules || []);
 
-        const addModule = (
+        const handleAddModule = (
             module: ReactElement<BlockEditorModule<ModuleValue>>
         ) => {
             setModules((prev) => {
@@ -38,6 +38,45 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
             });
         };
 
+        const handleMoveModule = React.useCallback(
+            (currentIndex: number, dir: number) => {
+                const nextIndex = currentIndex + dir;
+
+                setModules((prev) => {
+                    const result = [...prev];
+
+                    const [removed] = result.splice(currentIndex, 1);
+
+                    result.splice(nextIndex, 0, removed);
+
+                    // if (onChange)
+                    //     onChange({
+                    //         modules: result,
+                    //     } as any);
+                    return result;
+                });
+            },
+            []
+        );
+
+        const handleDeleteModule = React.useCallback(
+            (currentIndex: number) => {
+                setModules((prev) => {
+                    const result = [
+                        ...prev.slice(0, currentIndex),
+                        ...prev.slice(currentIndex + 1),
+                    ];
+
+                    // if (onChange)
+                    //     onChange({
+                    //         modules: result,
+                    //     } as any);
+                    return result;
+                });
+            },
+            []
+        );
+
         return (
             <>
                 {modules &&
@@ -48,7 +87,7 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
                                     <Popconfirm
                                         title="Wollen Sie diese Komponente wirklich entfernen?"
                                         onConfirm={() => {
-                                            // handleDelete(index);
+                                            handleDeleteModule(index);
                                             return true;
                                         }}
                                         onCancel={() => false}
@@ -68,7 +107,10 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
                                         size="small"
                                         disabled={index === 0}
                                         onClick={() => {
-                                            // handleMove(index, -1)
+                                            handleMoveModule(
+                                                index,
+                                                -1
+                                            );
                                         }}
                                     />
 
@@ -81,7 +123,10 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
                                             modules.length - 1
                                         }
                                         onClick={() => {
-                                            // handleMove(index, 1)
+                                            handleMoveModule(
+                                                index,
+                                                1
+                                            );
                                         }}
                                     />
                                 </BlockActions>
@@ -105,7 +150,7 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
                                         size="large"
                                         icon={icon}
                                         onClick={() =>
-                                            addModule(module)
+                                            handleAddModule(module)
                                         }
                                     />
                                 </Tooltip>
