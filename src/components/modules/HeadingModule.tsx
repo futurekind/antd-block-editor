@@ -23,19 +23,17 @@ const View = styled.h2`
 export type HeadingModuleValueType = string;
 
 const HeadingModule: FC<BlockEditorModule<HeadingModuleValueType>> =
-    ({ initialValue }) => {
+    ({ initialValue, onChange }) => {
         const [val, setVal] = useState(initialValue);
         return (
             <View>
                 <input
                     type="text"
                     value={val}
-                    onChange={(e) => setVal(e.currentTarget.value)}
-                    // onBlur={() => {
-                    //     if (onSave) {
-                    //         onSave(val);
-                    //     }
-                    // }}
+                    onChange={(e) => {
+                        setVal(e.currentTarget.value);
+                        if (onChange) onChange(e.currentTarget.value);
+                    }}
                 />
             </View>
         );

@@ -1,7 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useCallback } from 'react';
 import { Button, Popconfirm, Space, Tooltip } from 'antd';
 import { Block, BlockActions, BlockWithOutline } from './ui/Block';
-import { BlockEditorModule } from '../utils/types';
+import {
+    BlockEditorModule,
+    mapModuleToEditorState,
+} from '../utils/types';
 import { ReactElement } from 'react';
 import {
     ArrowDownOutlined,
@@ -11,9 +14,19 @@ import {
 
 interface BlockEditorProps<ModuleValue> {
     availableModules: ReactElement<BlockEditorModule<ModuleValue>>[];
-    editorState?: BlockEditorModule<ModuleValue>[];
+    editorState?: Array<
+        Pick<
+            BlockEditorModule<ModuleValue>,
+            'initialValue' | 'name' | 'key'
+        >
+    >;
     onChange?: (
-        editorState: BlockEditorModule<ModuleValue>[]
+        editorState: Array<
+            Pick<
+                BlockEditorModule<ModuleValue>,
+                'initialValue' | 'name' | 'key'
+            >
+        >
     ) => void;
 }
 
@@ -36,12 +49,13 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
                         key: prev.length + 1,
                     },
                 ];
-                if (onChange) onChange(result);
+                if (onChange)
+                    onChange(result.map(mapModuleToEditorState));
                 return result;
             });
         };
 
-        const handleMoveModule = React.useCallback(
+        const handleMoveModule = useCallback(
             (currentIndex: number, dir: number) => {
                 const nextIndex = currentIndex + dir;
 
@@ -52,7 +66,8 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
 
                     result.splice(nextIndex, 0, removed);
 
-                    if (onChange) onChange(result);
+                    if (onChange)
+                        onChange(result.map(mapModuleToEditorState));
 
                     return result;
                 });
@@ -60,7 +75,7 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
             [onChange]
         );
 
-        const handleDeleteModule = React.useCallback(
+        const handleDeleteModule = useCallback(
             (currentIndex: number) => {
                 setModules((prev) => {
                     const result = [
@@ -68,7 +83,29 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
                         ...prev.slice(currentIndex + 1),
                     ];
 
-                    if (onChange) onChange(result);
+                    if (onChange)
+                        onChange(result.map(mapModuleToEditorState));
+                    return result;
+                });
+            },
+            [onChange]
+        );
+
+        const handleChangeModule = useCallback(
+            (value: ModuleValue, index: number) => {
+                setModules((prev) => {
+                    const result = [
+                        ...prev.slice(0, index),
+                        {
+                            ...prev[index],
+                            initialValue: value,
+                        },
+                        ...prev.slice(index + 1),
+                    ];
+
+                    if (onChange)
+                        onChange(result.map(mapModuleToEditorState));
+
                     return result;
                 });
             },
@@ -148,6 +185,14 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
                                         {...module.props}
                                         key={key}
                                         initialValue={initialValue}
+                                        onChange={(
+                                            moduleValue: ModuleValue
+                                        ) =>
+                                            handleChangeModule(
+                                                moduleValue,
+                                                index
+                                            )
+                                        }
                                     />
                                 </BlockWithOutline>
                             );
