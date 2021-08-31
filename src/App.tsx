@@ -39,7 +39,7 @@ const App: FC = () => {
                                 name="heading"
                                 icon={<FontSizeOutlined />}
                                 tooltip="Heading"
-                                initialValue="Lorem Ipsum"
+                                value="Lorem Ipsum"
                             />,
 
                             <TextModule
@@ -47,7 +47,7 @@ const App: FC = () => {
                                 name="text"
                                 icon={<AlignLeftOutlined />}
                                 tooltip="Text"
-                                initialValue={`Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                value={`Lorem ipsum dolor sit amet consectetur adipisicing elit. 
 
 Perspiciatis molestias, magni delectus consectetur rem cupiditate provident ex quidem labore alias in, omnis magnam officiis maxime, maiores eum neque numquam molestiae!`}
                             />,
@@ -56,16 +56,15 @@ Perspiciatis molestias, magni delectus consectetur rem cupiditate provident ex q
                             {
                                 key: 'a',
                                 name: 'heading',
-                                initialValue: 'Lorem',
+                                value: 'Lorem',
                             },
                             {
                                 key: 'b',
                                 name: 'text',
-                                initialValue:
-                                    'Perspiciatis molestias, magni delectus consectetur rem cupiditate provident ex quidem labore alias in, omnis magnam officiis maxime, maiores eum neque numquam molestiae!',
+                                value: 'Perspiciatis molestias, magni delectus consectetur rem cupiditate provident ex quidem labore alias in, omnis magnam officiis maxime, maiores eum neque numquam molestiae!',
                             },
                         ]}
-                        onChange={(x) => console.table(x)}
+                        onChange={(x) => console.log(x)}
                     />
                 </MainView>
             </Content>

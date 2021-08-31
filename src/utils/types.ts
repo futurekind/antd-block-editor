@@ -5,16 +5,16 @@ export interface BlockEditorModule<ModuleValue> {
     tooltip?: string;
     key: string | number;
     name: string;
-    initialValue?: ModuleValue;
+    value?: ModuleValue;
     onChange?: (value: ModuleValue) => void;
 }
 
 export const mapModuleToEditorState = ({
     key,
-    initialValue,
+    value,
     name,
 }: BlockEditorModule<any>) => ({
     key,
-    initialValue,
+    value,
     name,
 });

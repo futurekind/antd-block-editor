@@ -15,16 +15,13 @@ import {
 interface BlockEditorProps<ModuleValue> {
     availableModules: ReactElement<BlockEditorModule<ModuleValue>>[];
     editorState?: Array<
-        Pick<
-            BlockEditorModule<ModuleValue>,
-            'initialValue' | 'name' | 'key'
-        >
+        Pick<BlockEditorModule<ModuleValue>, 'value' | 'name' | 'key'>
     >;
     onChange?: (
         editorState: Array<
             Pick<
                 BlockEditorModule<ModuleValue>,
-                'initialValue' | 'name' | 'key'
+                'value' | 'name' | 'key'
             >
         >
     ) => void;
@@ -98,7 +95,7 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
                         ...prev.slice(0, index),
                         {
                             ...prev[index],
-                            initialValue: value,
+                            value,
                         },
                         ...prev.slice(index + 1),
                     ];
@@ -116,7 +113,10 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
             <>
                 {modules &&
                     modules.map(
-                        ({ key, name, initialValue }, index) => {
+                        (
+                            { key, name, value: initialValue },
+                            index
+                        ) => {
                             const module = availableModules.find(
                                 (module) => module.props.name === name
                             );

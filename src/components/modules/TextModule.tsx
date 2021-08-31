@@ -21,10 +21,10 @@ const View = styled.article`
 export type TextModuleValueType = string;
 
 const TextModule: FC<BlockEditorModule<TextModuleValueType>> = ({
-    initialValue,
+    value,
     onChange,
 }) => {
-    const [val, setVal] = useState(initialValue);
+    const [val, setVal] = useState(value);
 
     return (
         <View>
