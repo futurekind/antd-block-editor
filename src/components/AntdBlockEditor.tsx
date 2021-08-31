@@ -112,92 +112,81 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
         return (
             <>
                 {modules &&
-                    modules.map(
-                        (
-                            { key, name, value: initialValue },
-                            index
-                        ) => {
-                            const module = availableModules.find(
-                                (module) => module.props.name === name
-                            );
+                    modules.map(({ key, name, value }, index) => {
+                        const module = availableModules.find(
+                            (module) => module.props.name === name
+                        );
 
-                            if (!module) return null;
+                        if (!module) return null;
 
-                            const Module = module.type;
+                        const Module = module.type;
 
-                            return (
-                                <BlockWithOutline key={key}>
-                                    <BlockActions>
-                                        <Popconfirm
-                                            title="Wollen Sie diese Komponente wirklich entfernen?"
-                                            onConfirm={() => {
-                                                handleDeleteModule(
-                                                    index
-                                                );
-                                                return true;
-                                            }}
-                                            onCancel={() => false}
-                                            okText="Ja"
-                                            cancelText="Nein"
-                                        >
-                                            <Button
-                                                icon={
-                                                    <DeleteOutlined />
-                                                }
-                                                type="primary"
-                                                size="small"
-                                            />
-                                        </Popconfirm>
-
+                        return (
+                            <BlockWithOutline key={key}>
+                                <BlockActions>
+                                    <Popconfirm
+                                        title="Wollen Sie diese Komponente wirklich entfernen?"
+                                        onConfirm={() => {
+                                            handleDeleteModule(index);
+                                            return true;
+                                        }}
+                                        onCancel={() => false}
+                                        okText="Ja"
+                                        cancelText="Nein"
+                                    >
                                         <Button
-                                            icon={<ArrowUpOutlined />}
+                                            icon={<DeleteOutlined />}
                                             type="primary"
                                             size="small"
-                                            disabled={index === 0}
-                                            onClick={() => {
-                                                handleMoveModule(
-                                                    index,
-                                                    -1
-                                                );
-                                            }}
                                         />
+                                    </Popconfirm>
 
-                                        <Button
-                                            icon={
-                                                <ArrowDownOutlined />
-                                            }
-                                            type="primary"
-                                            size="small"
-                                            disabled={
-                                                index ===
-                                                modules.length - 1
-                                            }
-                                            onClick={() => {
-                                                handleMoveModule(
-                                                    index,
-                                                    1
-                                                );
-                                            }}
-                                        />
-                                    </BlockActions>
-
-                                    <Module
-                                        {...module.props}
-                                        key={key}
-                                        initialValue={initialValue}
-                                        onChange={(
-                                            moduleValue: ModuleValue
-                                        ) =>
-                                            handleChangeModule(
-                                                moduleValue,
-                                                index
-                                            )
-                                        }
+                                    <Button
+                                        icon={<ArrowUpOutlined />}
+                                        type="primary"
+                                        size="small"
+                                        disabled={index === 0}
+                                        onClick={() => {
+                                            handleMoveModule(
+                                                index,
+                                                -1
+                                            );
+                                        }}
                                     />
-                                </BlockWithOutline>
-                            );
-                        }
-                    )}
+
+                                    <Button
+                                        icon={<ArrowDownOutlined />}
+                                        type="primary"
+                                        size="small"
+                                        disabled={
+                                            index ===
+                                            modules.length - 1
+                                        }
+                                        onClick={() => {
+                                            handleMoveModule(
+                                                index,
+                                                1
+                                            );
+                                        }}
+                                    />
+                                </BlockActions>
+
+                                <Module
+                                    {...module.props}
+                                    key={key}
+                                    value={value}
+                                    onChange={(
+                                        moduleValue: ModuleValue
+                                    ) =>
+                                        handleChangeModule(
+                                            moduleValue,
+                                            index
+                                        )
+                                    }
+                                />
+                            </BlockWithOutline>
+                        );
+                    })}
 
                 <Block center>
                     <Space>
