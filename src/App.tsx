@@ -36,6 +36,7 @@ const App: FC = () => {
                         availableModules={[
                             <HeadingModule
                                 key="heading"
+                                name="heading"
                                 icon={<FontSizeOutlined />}
                                 tooltip="Heading"
                                 initialValue="Lorem Ipsum"
@@ -43,12 +44,26 @@ const App: FC = () => {
 
                             <TextModule
                                 key="text"
+                                name="text"
                                 icon={<AlignLeftOutlined />}
                                 tooltip="Text"
                                 initialValue={`Lorem ipsum dolor sit amet consectetur adipisicing elit. 
 
 Perspiciatis molestias, magni delectus consectetur rem cupiditate provident ex quidem labore alias in, omnis magnam officiis maxime, maiores eum neque numquam molestiae!`}
                             />,
+                        ]}
+                        editorState={[
+                            {
+                                key: 'a',
+                                name: 'heading',
+                                initialValue: 'Lorem',
+                            },
+                            {
+                                key: 'b',
+                                name: 'text',
+                                initialValue:
+                                    'Perspiciatis molestias, magni delectus consectetur rem cupiditate provident ex quidem labore alias in, omnis magnam officiis maxime, maiores eum neque numquam molestiae!',
+                            },
                         ]}
                     />
                 </MainView>
