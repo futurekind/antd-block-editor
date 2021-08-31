@@ -35,22 +35,25 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
     }) => {
         const [modules, setModules] = useState(editorState || []);
 
-        const handleAddModule = (
-            module: ReactElement<BlockEditorModule<ModuleValue>>
-        ) => {
-            setModules((prev) => {
-                const result = [
-                    ...prev,
-                    {
-                        ...module.props,
-                        key: prev.length + 1,
-                    },
-                ];
-                if (onChange)
-                    onChange(result.map(mapModuleToEditorState));
-                return result;
-            });
-        };
+        const handleAddModule = useCallback(
+            (
+                module: ReactElement<BlockEditorModule<ModuleValue>>
+            ) => {
+                setModules((prev) => {
+                    const result = [
+                        ...prev,
+                        {
+                            ...module.props,
+                            key: prev.length + 1,
+                        },
+                    ];
+                    if (onChange)
+                        onChange(result.map(mapModuleToEditorState));
+                    return result;
+                });
+            },
+            [onChange]
+        );
 
         const handleMoveModule = useCallback(
             (currentIndex: number, dir: number) => {
