@@ -22,6 +22,7 @@ export type TextModuleValueType = string;
 
 const TextModule: FC<BlockEditorModule<TextModuleValueType>> = ({
     initialValue,
+    onChange,
 }) => {
     const [val, setVal] = useState(initialValue);
 
@@ -29,13 +30,12 @@ const TextModule: FC<BlockEditorModule<TextModuleValueType>> = ({
         <View>
             <Input.TextArea
                 value={val}
-                onChange={(e) => setVal(e.currentTarget.value)}
+                onChange={(e) => {
+                    setVal(e.currentTarget.value);
+
+                    if (onChange) onChange(e.currentTarget.value);
+                }}
                 autoSize
-                // onBlur={() => {
-                //     if (onSave) {
-                //         onSave(val);
-                //     }
-                // }}
             />
         </View>
     );
