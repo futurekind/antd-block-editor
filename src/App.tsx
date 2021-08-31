@@ -65,6 +65,7 @@ Perspiciatis molestias, magni delectus consectetur rem cupiditate provident ex q
                                     'Perspiciatis molestias, magni delectus consectetur rem cupiditate provident ex quidem labore alias in, omnis magnam officiis maxime, maiores eum neque numquam molestiae!',
                             },
                         ]}
+                        onChange={(x) => console.table(x)}
                     />
                 </MainView>
             </Content>

@@ -12,12 +12,16 @@ import {
 interface BlockEditorProps<ModuleValue> {
     availableModules: ReactElement<BlockEditorModule<ModuleValue>>[];
     editorState?: BlockEditorModule<ModuleValue>[];
+    onChange?: (
+        editorState: BlockEditorModule<ModuleValue>[]
+    ) => void;
 }
 
 const AntdBlockEditor = <ModuleValue extends any>() => {
     const Instance: FC<BlockEditorProps<ModuleValue>> = ({
         availableModules,
         editorState,
+        onChange,
     }) => {
         const [modules, setModules] = useState(editorState || []);
 
@@ -25,13 +29,15 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
             module: ReactElement<BlockEditorModule<ModuleValue>>
         ) => {
             setModules((prev) => {
-                return [
+                const result = [
                     ...prev,
                     {
                         ...module.props,
                         key: prev.length + 1,
                     },
                 ];
+                if (onChange) onChange(result);
+                return result;
             });
         };
 
@@ -46,14 +52,12 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
 
                     result.splice(nextIndex, 0, removed);
 
-                    // if (onChange)
-                    //     onChange({
-                    //         modules: result,
-                    //     } as any);
+                    if (onChange) onChange(result);
+
                     return result;
                 });
             },
-            []
+            [onChange]
         );
 
         const handleDeleteModule = React.useCallback(
@@ -64,14 +68,11 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
                         ...prev.slice(currentIndex + 1),
                     ];
 
-                    // if (onChange)
-                    //     onChange({
-                    //         modules: result,
-                    //     } as any);
+                    if (onChange) onChange(result);
                     return result;
                 });
             },
-            []
+            [onChange]
         );
 
         return (
@@ -145,6 +146,7 @@ const AntdBlockEditor = <ModuleValue extends any>() => {
 
                                     <Module
                                         {...module.props}
+                                        key={key}
                                         initialValue={initialValue}
                                     />
                                 </BlockWithOutline>
